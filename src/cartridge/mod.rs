@@ -512,7 +512,7 @@ impl Cartridge {
 
         let mut f = File::create(filename).unwrap();
 
-        f.write_all(b"Saved by Pikuseru Console https://github.com/Gigoteur/PikuseruConsole\n").unwrap();
+        f.write_all(b"Saved by Pikuseru Console https://github.com/PikuseruConsole/pikuseru\n").unwrap();
         f.write_all(format!("Version {:?}\n", version).as_bytes())
             .unwrap();
 
