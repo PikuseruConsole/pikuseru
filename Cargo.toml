@@ -77,15 +77,6 @@ optional = true
 version="0.19.4"
 git = "https://github.com/Gigoteur/rlua-pico8"
 
-[dependencies.rustpython]
-git = "https://github.com/RustPython/RustPython.git"
-version="0.2.0"
-
-[dependencies.rustpython-vm]
-git = "https://github.com/RustPython/RustPython.git"
-version="0.2.0"
-
-
 [dependencies.image]
 optional = true
-version="0.24.5"
+version = "0.24.5"
