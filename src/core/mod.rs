@@ -812,12 +812,12 @@ impl Pikuseru {
         if filename.contains(".pik") {
             match Cartridge::from_pikuseru_file(filename.as_str()) {
                 Ok(c) => cartridge = c,
-                Err(e) => panic!("[Pikuseru] Impossible to load the pikuseru cartridge {:?}", e),
+                Err(e) => panic!("[Pikuseru] Impossible to load the Pikuseru cartridge {:?}", e),
             }
         } else if filename.contains(".apik") {
             match Cartridge::from_dpikuseru_file(filename.as_str()) {
                 Ok(c) => cartridge = c,
-                Err(e) => panic!("[Pikuseru] Impossible to load the dPikuseru cartridge {:?}", e),
+                Err(e) => panic!("[Pikuseru] Impossible to load the Pikuseru asset cartridge {:?}", e),
             }
         } else if filename.contains(".png") {
             match Cartridge::from_png_file(filename.as_str()) {
