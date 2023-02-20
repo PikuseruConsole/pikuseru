@@ -1,0 +1,91 @@
+[package]
+name = "pikuseru"
+version = "0.1.0"
+authors = ["hallucino <d@t0t0.fr>"]
+description = "Pikuseru Console"
+documentation = ""
+homepage = ""
+repository = ""
+readme = "README.md"
+keywords = ["pikuseru", "python", "lua", "rhai", "wasm"]
+license = "MIT"
+build = "build.rs"
+
+exclude = [ ".idea/*", ".travis.yml" ]
+
+[lib]
+name       = "pikuseru"
+path       = "src/lib.rs"
+
+[[bin]]
+name = "audio_test"
+path = "src/bin/audio_test.rs"
+
+[profile.release]
+opt-level = 3
+debug = false
+rpath = false
+lto = false
+debug-assertions = false
+codegen-units = 1
+panic = 'unwind'
+
+[features]
+default = []
+editor = []
+
+[dependencies]
+regex = "1.5.6"
+byteorder = "1"
+libc = "0.2"
+log = "0.4"
+gif = "0.11.3"
+serde = { version = "1.0.144", features = ["derive"] }
+num-traits = "0.2.15"
+glob = "0.3.0"
+clippy = {version = "*", optional = true}
+gapbuffer = "0.1.1"
+unicode-width = "0.1.9"
+ordered-float = "3.0.0"
+png = "0.17.5"
+anyhow = "1.0"
+strum = { version = "0.24.1", features = ["derive"] }
+fastrand = "1.8.0"
+rand = "0.8.5"
+rand_chacha = "0.3.1"
+getrandom = {version="0.2.8", features = ["js"]}
+bytemuck = {version = "1.12.3", features = ["derive"]}
+paste = "1.0.8"
+arrayvec = { version = "0.7.2", features = ["serde"] }
+tinystr = "0.6.2"
+rtrb = "0.2.2"
+base64 = "0.13.0"
+cpal = "0.13.5"
+
+# for .wav of the bin directory
+hound = "3.4.0"
+
+rhai = "1.12.0"
+wasmtime = "5.0.0"
+
+[dependencies.cpython]
+version = "0.7"
+optional = true
+
+[dependencies.rlua]
+optional = true
+version="0.19.4"
+git = "https://github.com/Gigoteur/rlua-pico8"
+
+[dependencies.rustpython]
+git = "https://github.com/RustPython/RustPython.git"
+version="0.2.0"
+
+[dependencies.rustpython-vm]
+git = "https://github.com/RustPython/RustPython.git"
+version="0.2.0"
+
+
+[dependencies.image]
+optional = true
+version="0.24.5"
