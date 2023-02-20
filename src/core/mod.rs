@@ -809,12 +809,12 @@ impl Pikuseru {
 
 
         let cartridge;
-        if filename.contains(".corn") {
+        if filename.contains(".pik") {
             match Cartridge::from_pikuseru_file(filename.as_str()) {
                 Ok(c) => cartridge = c,
                 Err(e) => panic!("[Pikuseru] Impossible to load the pikuseru cartridge {:?}", e),
             }
-        } else if filename.contains(".acorn") {
+        } else if filename.contains(".apik") {
             match Cartridge::from_dpikuseru_file(filename.as_str()) {
                 Ok(c) => cartridge = c,
                 Err(e) => panic!("[Pikuseru] Impossible to load the dPikuseru cartridge {:?}", e),

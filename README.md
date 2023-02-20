@@ -26,8 +26,8 @@ The main engine is not dependant of a specific graphic library so you can use it
   * [pikuseru](https://github.com/PikuseruConsole/pikuseru): Main core engine
   * [pikuseru-console](https://github.com/PikuseruConsole/pikuseru-console): Launcher for all cartridge, based on EGUI + Pixels
   * [pikuseru-editor](https://github.com/PikuseruConsole/pikuseru-editor): Editor of the cartridge (graphics, sound, code), based on EGUI
-  * [pikuseru-rs](https://github.com/PikuseruConsole/pikuserun-rs): Wasm binding crate
-  * [pikuseru-examples](https://github.com/PikuseruConsole/pikuseru-examples): a non exhausitve list of Unicorn cartrdige for testing
+  * [pikuseru-rs](https://github.com/PikuseruConsole/pikuseru-rs): Wasm binding crate
+  * [pikuseru-examples](https://github.com/PikuseruConsole/pikuseru-examples): a non exhausitve list of Pikuseru cartrdige for testing
   
 ## Features
 
@@ -39,8 +39,12 @@ The main engine is not dependant of a specific graphic library so you can use it
   * Map: 128x32 8-bit cells
   * Code: No limit size in the cartridge, and support of the following languages: Lua (optional), Python (optional), Rhai (default), WASM (default)
   * Sound: 8 channels, tracker, FM synthetizer, 16-bit Wavetables (from GamerCade console) 
-  * Screenshot / Gif Recording (unicorn/image feature)
-  
+  * Screenshot / Gif Recording (image feature)
+
+## Examples
+
+See the [console](https://github.com/PikuseruConsole/pikuseru-console) for more examples.
+
 ## Limitations
 
 The console is somewhat compatible with [pico-8](https://www.lexaloffle.com/pico-8.php) (buy it !), most of current functions from pico8 is implemented and the cartridge is the same format. However some pico8/lua language syntax is supported like:
@@ -48,7 +52,7 @@ The console is somewhat compatible with [pico-8](https://www.lexaloffle.com/pico
   * "!=" like "~="
   * binary literals
 
-But see the pikuseru-examples, I did some modifications of good games to use it with Unicorn too.
+But see the pikuseru-examples, I did some modifications of good games to use it with Pikuseru too.
 
 
 ## Build
@@ -67,9 +71,9 @@ cargo build --release --features=cpython,rlua,image
 
 | File format  | Read | Write |
 | ------------- | ------------- | ------------- |
-| Pico8 PNG  | X  | / |
-| Pico8 P8  | X  | X |
-| Pikuseru (PIK) | X  | X |
+| Pico8 .PNG  | X  | / |
+| Pico8 .P8  | X  | X |
+| Pikuseru (.PIK) | X  | X |
 
 Pikuseru file format is exactly the same as PICO8 P8 format, except that new sections are available, like __python__, __rhai__, __wasm__, __code__ etc.
 
@@ -140,8 +144,6 @@ Draw a filled circle:
 *  _x_/_y_ are the coordinates
 * _r_ is the radius of the circle
 * _col_ is the color of the circle
-
-[[https://j.gifs.com/nZl3GE.gif]]
 
 #### clip
 
@@ -219,7 +221,6 @@ Get the pixel color in x/y coordinate
 #### print
 
 `print (str, [x, y, [col]])`
-[Python: **unicorn_print**]
 
 Display a string on the screen
 
@@ -241,7 +242,6 @@ draw a rectangle
 
 draw filled rectangle
 
-[[https://j.gifs.com/76MGDr.gif]]
 
 #### sget
 
@@ -260,7 +260,7 @@ Draw a sprite:
 * _flip_x_ to flip horizontally the sprite
 * _flip_y_ to flip vertically the sprite
 
-Color 0 will be transparent by default (see [palt](https://github.com/Gigoteur/PX8/wiki/API-Documentation#palt)
+Color 0 will be transparent by default (see "palt" API).
 
 
 #### sset
@@ -320,8 +320,8 @@ Set a map value
 ### Cart Data [**WIP**]
 
 
-[github badge]: https://img.shields.io/badge/github-gigoteur/unicornconsole-8da0cb?style=for-the-badge&logo=github
-[github link]: https://github.com/Gigoteur/UnicornConsole
-[travis badge]: https://app.travis-ci.com/Gigoteur/UnicornConsole.svg?branch=master
-[travis link]: https://travis-ci.com/Gigoteur/UnicornConsole
+[github badge]: https://img.shields.io/badge/github-pikuseruconsole/pikuseru-8da0cb?style=for-the-badge&logo=github
+[github link]: https://github.com/PikuseruConsole/pikuseru
+[travis badge]: https://app.travis-ci.com/PikuseruConsole/pikuseru.svg?branch=master
+[travis link]: https://travis-ci.com/PikuseruConsole/pikuseru
 

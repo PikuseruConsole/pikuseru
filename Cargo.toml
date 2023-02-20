@@ -1,6 +1,6 @@
 [package]
 name = "pikuseru"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["hallucino <d@t0t0.fr>"]
 description = "Pikuseru Console"
 documentation = "https://github.com/PikuseruConsole/pikuseru"
