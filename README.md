@@ -324,9 +324,7 @@ Set a map value
 
 [github badge]: https://img.shields.io/badge/github-pikuseruconsole/pikuseru-8da0cb?style=for-the-badge&logo=github
 [github link]: https://github.com/PikuseruConsole/pikuseru
-[travis badge]: https://app.travis-ci.com/PikuseruConsole/pikuseru.svg?branch=master
-[travis link]: https://travis-ci.com/PikuseruConsole/pikuseru
 [crates.io link]: https://crates.io/crates/pikuseru
 [crates.io version]: https://img.shields.io/crates/v/pikuseru.svg?style=for-the-badge&logo=rust
 [ci link]: https://github.com/PikuseruConsole/pikuseru/actions
-[ci badge]: https://img.shields.io/github/actions/workflow/status/PikuseruConsole/pikuseru/rust.yml?branch=main
+[ci badge]: https://img.shields.io/github/actions/workflow/status/PikuseruConsole/pikuseru/rust.yml?branch=main&style=for-the-badge&logo=github-actions&logoColor=white
