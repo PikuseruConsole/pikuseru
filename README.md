@@ -7,8 +7,9 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 [![Github Link][github badge]][github link]
+[![CI Status][ci badge]][ci link]
 [![Version][crates.io version]][crates.io link]
-[![Travis Link][travis badge]][travis link]
+
 
 <!-- PROJECT LOGO -->
 <p align="center">
@@ -327,3 +328,5 @@ Set a map value
 [travis link]: https://travis-ci.com/PikuseruConsole/pikuseru
 [crates.io link]: https://crates.io/crates/pikuseru
 [crates.io version]: https://img.shields.io/crates/v/pikuseru.svg?style=for-the-badge&logo=rust
+[ci link]: https://github.com/PikuseruConsole/pikuseru/actions
+[ci badge]: https://img.shields.io/github/workflow/status/PikuseruConsole/pikuseru/CI?style=for-the-badge&logo=github-actions&logoColor=white
