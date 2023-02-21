@@ -329,4 +329,4 @@ Set a map value
 [crates.io link]: https://crates.io/crates/pikuseru
 [crates.io version]: https://img.shields.io/crates/v/pikuseru.svg?style=for-the-badge&logo=rust
 [ci link]: https://github.com/PikuseruConsole/pikuseru/actions
-[ci badge]: https://img.shields.io/github/workflow/status/PikuseruConsole/pikuseru/CI?style=for-the-badge&logo=github-actions&logoColor=white
+[ci badge]: https://img.shields.io/github/actions/workflow/status/PikuseruConsole/pikuseru/rust.yml?branch=main
