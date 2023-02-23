@@ -970,6 +970,65 @@ impl Screen {
         return n;
     }
 
+    pub fn spr_dyn(&mut self, n: u32,
+        x: i32, y: i32, 
+        w: i32, h: i32,
+        flip_x: bool, flip_y: bool,
+        angle: f64, zoom: f64) {
+
+        let sprite = self.dyn_sprites[n as usize].clone();
+        if w != sprite.width as i32 || h != sprite.height as i32 {
+            let mut w2 = w as u32;
+            let mut h2 = h as u32;
+
+            if w == -1 {
+                w2 = sprite.width as u32;
+            }
+
+            if h == -1 {
+                h2 = sprite.height as u32;
+            }
+
+            let mut ret = Vec::with_capacity((w2 * h2) as usize);
+
+            let x_ratio: u32 = (sprite.width << 16) / w2;
+            let y_ratio: u32 = (sprite.height << 16) / h2;
+
+            let mut x2: u32;
+            let mut y2: u32;
+
+            for i in 0..h2 {
+                for j in 0..w2 {
+                    x2 = (j * x_ratio) >> 16;
+                    y2 = (i * y_ratio) >> 16;
+                    let idx = (y2 * sprite.width + x2) as usize;
+                    ret.insert((i * w2 + j) as usize, sprite.data[idx]);
+                }
+            }
+
+            self._sprite_rotazoom(
+                ret.clone(),
+                w2,
+                h2,
+                x,
+                y,
+                angle,
+                zoom,
+                flip_x, flip_y);
+
+        } else {                   
+            self._sprite_rotazoom(
+                sprite.data.clone(),
+                sprite.width,
+                sprite.height,
+                x,
+                y,
+                angle,
+                zoom,
+                flip_x, flip_y);
+        }
+    }
+
     pub fn spr(&mut self, n: u32,
                x: i32, y: i32, 
                w: i32, h: i32,
@@ -992,115 +1051,74 @@ impl Screen {
         }
 
         if dynamic {
-            let sprite = self.dyn_sprites[n as usize].clone();
-            if w != sprite.width as i32 || h != sprite.height as i32 {
-                let mut w2 = w as u32;
-                let mut h2 = h as u32;
-
-                if w == -1 {
-                    w2 = sprite.width as u32;
-                }
-
-                if h == -1 {
-                    h2 = sprite.height as u32;
-                }
-
-                let mut ret = Vec::with_capacity((w2 * h2) as usize);
-
-                let x_ratio: u32 = (sprite.width << 16) / w2;
-                let y_ratio: u32 = (sprite.height << 16) / h2;
-
-                let mut x2: u32;
-                let mut y2: u32;
-
-                for i in 0..h2 {
-                    for j in 0..w2 {
-                        x2 = (j * x_ratio) >> 16;
-                        y2 = (i * y_ratio) >> 16;
-                        let idx = (y2 * sprite.width + x2) as usize;
-                        ret.insert((i * w2 + j) as usize, sprite.data[idx]);
-                    }
-                }
-
-                self._sprite_rotazoom(
-                    ret.clone(),
-                    w2,
-                    h2,
-                    x,
-                    y,
-                    angle,
-                    zoom,
-                    flip_x, flip_y);
-
-            } else {
-                //info!("DYNAMIC SPR {:?} {:?} {:?}", sprite.data.clone(), sprite.width, sprite.height);
-/* 
-                self._sprite_quick(
-                    sprite.data.clone(),
-                    sprite.width,
-                    sprite.height,
-                    x,
-                    y,
-                    flip_x,
-                    flip_y);*/
-                    
-                self._sprite_rotazoom(
-                    sprite.data.clone(),
-                    sprite.width,
-                    sprite.height,
-                    x,
-                    y,
-                    angle,
-                    zoom,
-                    flip_x, flip_y);
-                }
-
+            self.spr_dyn(n, x, y, w, h, flip_x, flip_y, angle, zoom);
         } else {
-            let mut orig_x = x;
-            let mut orig_y = y;
+            if angle == 0.0 && zoom == 1.0 {
+                let w8 = w * 8;
+                let h8 = h * 8;
 
-            if flip_x {
-                orig_x = (w * 8 - 8) + x;
-            }
+                for j in 0..h8 {
+                    for i in 0..w8 {
+                        let mut di = i;
+                        if flip_x {
+                            di = w8 - 1 - i;
+                        }
+                        let mut dj = j;
+                        if flip_y {
+                            dj = h8 - 1 - j;
+                        }
 
-            if flip_y {
-                orig_y = (h * 8 - 8) + y;
-            }
-
-            let sprites_len = self.sprites.len();
-            for i in 0..h {
-                for j in 0..w {
-                    let sprite_offset = ((j + n as i32) + i * 16) as usize;
-                    if sprite_offset >= sprites_len {
-                        break;
-                    }
-
-                    let sprite = self.sprites[sprite_offset].clone();
-                    debug!("[SCREEN] [Screen] [SPR] Access to sprite {:?} {:?}", sprite_offset, sprite);
-
-                    self._sprite_rotazoom(
-                        sprite.data.clone().to_vec(),
-                        8, 8,
-                        orig_x, orig_y, angle, zoom,
-                        flip_x, flip_y);
-
-                    if flip_x {
-                        orig_x -= 8;
-                    } else {
-                        orig_x += 8;
+                        let data = self.sget((n % 16 * 8 + di as u32) as i32, (n / 16 * 8 + dj as u32) as i32);
+                        self.putpixel_(x + i, y + j, data as u32, false);
                     }
                 }
-
-                if flip_y {
-                    orig_y -= 8;
-                } else {
-                    orig_y += 8;
-                }
-
+            } else {
+                let mut orig_x = x;
+                let mut orig_y = y;
+    
                 if flip_x {
                     orig_x = (w * 8 - 8) + x;
-                } else {    
-                    orig_x = x;
+                }
+    
+                if flip_y {
+                    orig_y = (h * 8 - 8) + y;
+                }
+    
+                let sprites_len = self.sprites.len();
+                for i in 0..h {
+                    for j in 0..w {
+                        let sprite_offset = ((j + n as i32) + i * 16) as usize;
+                        if sprite_offset >= sprites_len {
+                            break;
+                        }
+    
+                        let sprite = self.sprites[sprite_offset].clone();
+                        debug!("[SCREEN] [Screen] [SPR] Access to sprite {:?} {:?}", sprite_offset, sprite);
+    
+                        self._sprite_rotazoom(
+                            sprite.data.clone().to_vec(),
+                            8, 8,
+                            orig_x, orig_y, angle, zoom,
+                            flip_x, flip_y);
+    
+                        if flip_x {
+                            orig_x -= 8;
+                        } else {
+                            orig_x += 8;
+                        }
+                    }
+    
+                    if flip_y {
+                        orig_y -= 8;
+                    } else {
+                        orig_y += 8;
+                    }
+    
+                    if flip_x {
+                        orig_x = (w * 8 - 8) + x;
+                    } else {    
+                        orig_x = x;
+                    }
                 }
             }
         }

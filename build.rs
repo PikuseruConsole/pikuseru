@@ -15,7 +15,7 @@ fn prebuild() -> io::Result<()> {
         .unwrap();
     f.write_all(format!("pub const MAJOR_VERSION: u32 = 1;\n").as_bytes())
         .unwrap();
-    f.write_all(format!("pub const MINOR_VERSION: u32 = 1;\n").as_bytes())
+    f.write_all(format!("pub const MINOR_VERSION: u32 = 2;\n").as_bytes())
         .unwrap();
 
     Ok(())
