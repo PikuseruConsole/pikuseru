@@ -59,12 +59,13 @@ But see the pikuseru-examples, I did some modifications of good games to use it 
 
 ## Build
 
-Cargo feature:
+Cargo features:
   * cpython: enable python support
   * rlua: enable lua support
 
-You can build the console directly the main UI to play games:
+You can build the console directly to play games:
 ```
+git clone github.com/PikuseruConsole/pikuseru
 cd pikuseru
 cargo build --release --features=cpython,rlua,image
 ```
